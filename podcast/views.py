@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 def episode_list(request):
-    pass
+    return render(request, 'episode_list.html')
 
 def episode_detail(request, episode_id):
-    pass
+    return render(request, 'episode_detail.html')
