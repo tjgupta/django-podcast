@@ -31,6 +31,13 @@ class ItunesMetaData(models.Model):
         return self.author
 
 
+class Keyword(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Episode(models.Model):
     podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
@@ -38,7 +45,7 @@ class Episode(models.Model):
     subtitle = models.CharField(max_length=255)
     summary = models.CharField(max_length=255)
     duration = models.IntegerField()
-    keywords = models.CharField(max_length=255)  # TODO: maybe store this as one to many in a separate table
+    keywords = models.ManyToManyField(Keyword)
     image_url = models.CharField(max_length=255) # TODO: switch to using ImageField and handle upload stuff
     description = models.CharField(max_length=255)
     filename = models.CharField(max_length=255)
@@ -69,3 +76,5 @@ class Audio(models.Model):
     filename = models.CharField(max_length=255)
     mime = models.CharField(max_length=40)  # derived from the file
 
+    def __str__(self):
+        return self.filename
