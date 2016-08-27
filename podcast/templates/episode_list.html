@@ -1,6 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <h1>Episode List</h1>
-<p>Hello world!</p>
+{% if episode_list %}
+<ul>
+{% for episode in episode_list %}
+    <li>
+        <ul>
+            <li>{{ episode.title }}</li>
+            <li>{{ episode.author }}</li>
+            <li>{{ episode.subtitle }}</li>
+            <li>{{ episode.summary }}</li>
+            <li>{{ episode.duration }}</li>
+            <li>{{ episode.keywords }}</li>
+            <li>{{ episode.image_url }}</li>
+            <li>{{ episode.description }}</li>
+            <li>{{ episode.filename }}</li>
+            <li>{{ episode.pub_date }}</li>
+        </ul>
+    </li>
+{% endfor %}
+</ul>
+{% else %}
+    <p>There are no episodes. </p>
+{% endif %}
+
 {% endblock content %}
