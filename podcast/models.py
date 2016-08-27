@@ -51,3 +51,21 @@ class Episode(models.Model):
 
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
+
+class Video(models.Model):
+    episode = models.ForeignKey(Episode, on_delete=models.CASCADE)
+    duration = models.IntegerField()  # seconds
+    filename = models.CharField(max_length=255)
+    mime = models.CharField(max_length=40)  # derived from the file
+
+    def __str__(self):
+        return self.filename
+
+
+class Audio(models.Model):
+    episode = models.ForeignKey(Episode, on_delete=models.CASCADE)
+    duration = models.IntegerField()  # seconds
+    filename = models.CharField(max_length=255)
+    mime = models.CharField(max_length=40)  # derived from the file
+
