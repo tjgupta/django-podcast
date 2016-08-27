@@ -8,15 +8,8 @@
 {% for episode in episode_list %}
     <li>
         <ul>
-            <li>{{ episode.title }}</li>
+            <li><a href="{% url 'episode_detail' episode.id %}">{{ episode.title }}</a></li>
             <li>{{ episode.author }}</li>
-            <li>{{ episode.subtitle }}</li>
-            <li>{{ episode.summary }}</li>
-            <li>{{ episode.duration }}</li>
-            <li>{{ episode.keywords }}</li>
-            <li>{{ episode.image_url }}</li>
-            <li>{{ episode.description }}</li>
-            <li>{{ episode.filename }}</li>
             <li>{{ episode.pub_date }}</li>
         </ul>
     </li>

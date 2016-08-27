@@ -2,5 +2,20 @@
 
 {% block content %}
 <h1>Episode Detail</h1>
-<p>Hello world!</p>
+
+
+<ul>
+    <li>{{ episode.title }}</a></li>
+    <li>{{ episode.author }}</li>
+    <li>{{ episode.subtitle }}</li>
+    <li>{{ episode.summary }}</li>
+    <li>{{ episode.duration }}</li>
+    <li>{{ episode.keywords }}</li>
+    <li>{{ episode.image_url }}</li>
+    <li>{{ episode.description }}</li>
+    <li>{{ episode.filename }}</li>
+    <li>{{ episode.pub_date }}</li>
+</ul>
+
+
 {% endblock content %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import Episode
 
 
@@ -9,4 +9,5 @@ def episode_list(request):
 
 
 def episode_detail(request, episode_id):
-    return render(request, 'episode_detail.html')
+    episode = get_object_or_404(Episode, pk=episode_id)
+    return render(request, 'episode_detail.html', {'episode': episode})
