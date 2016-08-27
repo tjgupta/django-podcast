@@ -1,22 +1,35 @@
 {% extends 'dashboard.html' %}
 
 {% block content %}
+<h2 class="sub-header">Episode list</h2>
 
-<h1>Episode List</h1>
 {% if episode_list %}
-<ul>
-{% for episode in episode_list %}
-    <li>
-        <ul>
-            <li><a href="{% url 'episode_detail' episode.id %}">{{ episode.title }}</a></li>
-            <li>{{ episode.author }}</li>
-            <li>{{ episode.pub_date }}</li>
-        </ul>
-    </li>
-{% endfor %}
-</ul>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Published date</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for episode in episode_list %}
+        <tr>
+            <td><a href="{% url 'episode_detail' episode.id %}">{{ episode.title }}</a></td>
+            <td>{{ episode.author }}</td>
+            <td>{{ episode.pub_date }}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
 {% else %}
-    <p>There are no episodes. </p>
+<h3>There are no episodes. </h3>
 {% endif %}
 
 {% endblock content %}

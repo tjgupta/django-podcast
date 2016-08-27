@@ -1,21 +1,52 @@
-{% extends 'base.html' %}
+{% extends 'dashboard.html' %}
 
 {% block content %}
-<h1>Episode Detail</h1>
 
 
-<ul>
-    <li>{{ episode.title }}</a></li>
-    <li>{{ episode.author }}</li>
-    <li>{{ episode.subtitle }}</li>
-    <li>{{ episode.summary }}</li>
-    <li>{{ episode.duration }}</li>
-    <li>{{ episode.keywords }}</li>
-    <li>{{ episode.image_url }}</li>
-    <li>{{ episode.description }}</li>
-    <li>{{ episode.filename }}</li>
-    <li>{{ episode.pub_date }}</li>
-</ul>
+<h2 class="sub-header">Episode list</h2>
+<a href="{% url 'episode_list' %}">Back to episode list</a>
+
+
+
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Metadata</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>Title</td>
+            <td>{{ episode.title }}</td>
+        </tr>
+        <tr>
+            <td>Author</td>
+            <td>{{ episode.author }}</td>
+        </tr>
+        <tr>
+            <td>Subtitle</td>
+            <td>{{ episode.subtitle }}</td>
+        </tr>
+        <tr>
+            <td>Summary</td>
+            <td>{{ episode.summary }}</td>
+        </tr>
+        <tr>
+            <td>Duration</td>
+            <td>{{ episode.duration }}</td>
+        </tr>
+        <tr>
+            <td>Published Date</td>
+            <td>{{ episode.pub_date }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
 
 
 {% endblock content %}
