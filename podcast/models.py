@@ -12,13 +12,6 @@ class Podcast(models.Model):
     copyright = models.CharField(max_length=255)
     pub_date = models.DateTimeField()
     webmaster = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.title
-
-
-class ItunesMetaData(models.Model):
-    podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
     author = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255)
     summary = models.CharField(max_length=255)
@@ -28,7 +21,7 @@ class ItunesMetaData(models.Model):
     email = models.EmailField()
 
     def __str__(self):
-        return self.author
+        return self.title
 
 
 class Keyword(models.Model):
@@ -44,11 +37,9 @@ class Episode(models.Model):
     author = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255)
     summary = models.CharField(max_length=255)
-    duration = models.IntegerField()
     keywords = models.ManyToManyField(Keyword)
     image_url = models.CharField(max_length=255) # TODO: switch to using ImageField and handle upload stuff
     description = models.CharField(max_length=255)
-    filename = models.CharField(max_length=255)
     pub_date = models.DateTimeField()
     date_created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
