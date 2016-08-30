@@ -1,0 +1,43 @@
+{% extends 'base.xml' %}
+{% block content %}
+<channel>
+    <title>{{ podcast.title }}</title>
+    <description>{{ podcast.description }}</description>
+    <link>{{ podcast.link }}</link>
+    <language>{{ podcast.language }}</language>
+    <copyright>{{ podcast.copyright }}</copyright>
+    <lastBuildDate>{{ last_build_date }}</lastBuildDate>
+    <pubDate>{{ podcast.get_pub_date }}</pubDate>
+
+    <itunes:subtitle>{{ podcast.subtitle }}</itunes:subtitle>
+    <itunes:author>{{ podcast.author }}</itunes:author>
+    <itunes:summary>{{ podcast.summary }}</itunes:summary>
+    <itunes:image>{{ podcast.image }}</itunes:image>
+    <itunes:webMaster>{{ podcast.webmaster }}</itunes:webMaster>
+    <itunes:owner>
+        <itunes:name>{{ podcast.owner }}</itunes:name>
+        <itunes:email>{{ podcast.email }}</itunes:email>
+    </itunes:owner>
+
+    <itunes:category text="{{ podcast.category }}">
+        <itunes:category text="{{ podcast.category }}" />
+    </itunes:category>
+
+    {% for episode in episodes %}
+    <item>
+        <title>{{ episode.title }}</title>
+        <itunes:author>{{ episode.author }}</itunes:author>
+        <itunes:subtitle>{{ episode.subtitle }}</itunes:subtitle>
+        <itunes:summary>{{ episode.summary }}</itunes:summary>
+        <itunes:duration>{{ episode.duration }}</itunes:duration>
+        <itunes:keywords>{{ episode.keywords }}</itunes:keywords>
+        <itunes:image>{{ episode.image }}</itunes:image>
+        <description>{{ episode.description }}</description>
+        <pubDate>{{ episode.get_pub_date }}</pubDate>
+    </item>
+    {% endfor %}
+
+</channel>
+
+
+{% endblock content %}
