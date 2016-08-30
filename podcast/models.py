@@ -58,21 +58,31 @@ class Episode(models.Model):
         return formats.date_format(self.pub_date, "D, d M Y H:i:s O")
 
 
-class Video(models.Model):
+class Media(models.Model):
+
+    AUDIO = 1
+    VIDEO = 2
+    FORMAT_TYPES = (
+        (AUDIO, 'Audio'),
+        (VIDEO, 'Video'),
+    )
+
+    MIME_TYPES = (
+        (AUDIO, 'audio/mpeg'),
+        (VIDEO, 'video/mp4'),
+    )
     episode = models.ForeignKey(Episode, on_delete=models.CASCADE)
+    format = models.IntegerField(
+        choices=FORMAT_TYPES,
+        default=AUDIO
+    )
+
     duration = models.IntegerField()  # seconds
     filename = models.CharField(max_length=255)
-    mime = models.CharField(max_length=40)  # derived from the file
-
-    def __str__(self):
-        return self.filename
-
-
-class Audio(models.Model):
-    episode = models.ForeignKey(Episode, on_delete=models.CASCADE)
-    duration = models.IntegerField()  # seconds
-    filename = models.CharField(max_length=255)
-    mime = models.CharField(max_length=40)  # derived from the file
+    mime = models.IntegerField(
+        choices=MIME_TYPES,
+        default=AUDIO
+    )
 
     def __str__(self):
         return self.filename
