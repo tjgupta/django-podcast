@@ -13,16 +13,17 @@
     <itunes:subtitle>{{ podcast.subtitle }}</itunes:subtitle>
     <itunes:author>{{ podcast.author }}</itunes:author>
     <itunes:summary>{{ podcast.summary }}</itunes:summary>
-    <itunes:image>{{ podcast.image_url }}</itunes:image>
-    <webMaster>{{ podcast.webmaster }}</webMaster>
+    <itunes:image>{{ podcast.full_image_url }}</itunes:image>
+    <webMaster>{{ podcast.webmaster }} ({{ podcast.owner }})</webMaster>
     <itunes:owner>
         <itunes:name>{{ podcast.owner }}</itunes:name>
-        <itunes:email>{{ podcast.email }}</itunes:email>
+        <itunes:email>{{ podcast.email }} ({{ podcast.owner }})</itunes:email>
     </itunes:owner>
 
     <itunes:category text="{{ podcast.category }}">
         <itunes:category text="{{ podcast.category }}" />
     </itunes:category>
+    <itunes:explicit>{{ podcast.explicit }}</itunes:explicit>
 
     {% for item in items %}
     <item>
@@ -32,10 +33,11 @@
         <itunes:summary>{{ item.episode.summary }}</itunes:summary>
         <itunes:duration>{{ item.duration }}</itunes:duration>
         <itunes:keywords>{{ item.episode.keywords }}</itunes:keywords>
-        <itunes:image>{{ item.episode.image }}</itunes:image>
+        <itunes:image>{{ item.episode.full_image_url }}</itunes:image>
+        <itunes:explicit>{{ item.episode.explicit }}</itunes:explicit>
         <description>{{ item.episode.description }}</description>
-        <guid>{{ item.filename }}</guid>
-        <enclosure url="{{ item.filename }}" length="{{ item.duration }}" type="audio/mpeg"/> {#{{ item.mime }} #}
+        <guid>{{ item.full_media_url }}</guid>
+        <enclosure url="{{ item.full_media_url }}" length="{{ item.duration }}" type="{{ item.mime_type_from_int }}"/> {#{{ item.mime }} #}
         <pubDate>{{ item.episode.get_pub_date }}</pubDate>
     </item>
     {% endfor %}

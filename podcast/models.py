@@ -6,6 +6,12 @@ from django.utils import formats
 
 
 class Podcast(models.Model):
+
+    EXPLICIT = (
+        ('yes', 'yes'),
+        ('no', 'no'),
+        ('clean', 'clean'))
+
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     link = models.CharField(max_length=255)
@@ -20,6 +26,7 @@ class Podcast(models.Model):
     image_url = models.CharField(max_length=255)  # TODO: switch to using ImageField and handle upload stuff
     owner = models.CharField(max_length=255)
     email = models.EmailField()
+    explicit = models.CharField(max_length=5, choices=EXPLICIT)
 
     def __str__(self):
         return self.title
@@ -27,6 +34,10 @@ class Podcast(models.Model):
     @property
     def formatted_pub_date(self):
         return formats.date_format(self.pub_date, "D, d M Y H:i:s O")
+
+    @property
+    def full_image_url(self):
+        return "http://www.example.com/media/{}".format(self.image_url)
 
 
 class Keyword(models.Model):
@@ -37,6 +48,11 @@ class Keyword(models.Model):
 
 
 class Episode(models.Model):
+    EXPLICIT = (
+        ('yes', 'yes'),
+        ('no', 'no'),
+        ('clean', 'clean'))
+
     podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
@@ -45,6 +61,7 @@ class Episode(models.Model):
     keywords = models.ManyToManyField(Keyword)
     image_url = models.CharField(max_length=255)  # TODO: switch to using ImageField and handle upload stuff
     description = models.CharField(max_length=255)
+    explicit = models.CharField(max_length=5, choices=EXPLICIT)
     pub_date = models.DateTimeField()
     date_created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
@@ -55,8 +72,13 @@ class Episode(models.Model):
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
+    @property
     def get_pub_date(self):
         return formats.date_format(self.pub_date, "D, d M Y H:i:s O")
+
+    @property
+    def full_image_url(self):
+        return "http://www.example.com/media/{}".format(self.image_url)
 
 
 class Media(models.Model):
@@ -87,6 +109,14 @@ class Media(models.Model):
 
     def __str__(self):
         return self.filename
+
+    @property
+    def full_media_url(self):
+        return "http://www.example.com/media/{}".format(self.filename)
+
+    @property
+    def mime_type_from_int(self):
+        return self.MIME_TYPES[0]
 
 
 class EpisodeManager(models.Manager):
