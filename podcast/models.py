@@ -115,24 +115,8 @@ class Media(models.Model):
         return "http://www.example.com/media/{}".format(self.filename)
 
     @property
-    def mime_type_from_int(self):
-        return self.MIME_TYPES[0]
-
-
-class EpisodeManager(models.Manager):
-
-    def with_media(self, podcast_id, format = Media.AUDIO):
-        from django.db import connection
-
-        query = '"""SELECT * from podcast_episode ' \
-                'LEFT JOIN podcast_media ' \
-                'ON podcast_episode.id = podcast_media.episode_id ' \
-                'podcast_episode.podcast_id = {} WHERE FORMAT= {}"""'.format(podcast_id, format)
-        # TODO replace this sql injection query with a prepared statement however Django handles it.
-
-        cursor = connection.cursor()
-        cursor.execute(query)
-        return cursor.fetchall()
-
-
+    def convert_mime_to_string(self):
+        for mime in self.MIME_TYPES:
+            if mime[0] == self.mime:
+                return mime[1]
 

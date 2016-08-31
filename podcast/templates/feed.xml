@@ -37,7 +37,7 @@
         <itunes:explicit>{{ item.episode.explicit }}</itunes:explicit>
         <description>{{ item.episode.description }}</description>
         <guid>{{ item.full_media_url }}</guid>
-        <enclosure url="{{ item.full_media_url }}" length="{{ item.duration }}" type="{{ item.mime_type_from_int }}"/> {#{{ item.mime }} #}
+        <enclosure url="{{ item.full_media_url }}" length="{{ item.duration }}" type="{{ item.convert_mime_to_string }}"/> {#{{ item.mime }} #}
         <pubDate>{{ item.episode.get_pub_date }}</pubDate>
     </item>
     {% endfor %}
