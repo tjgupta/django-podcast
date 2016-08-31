@@ -17,7 +17,11 @@ def episode_detail(request, episode_id):
 
 def podcast_feed(request, podcast_id):
     podcast = get_object_or_404(Podcast, pk=podcast_id)
-    episodes = Episode.objects.filter(podcast_id=podcast_id).select_related()
+    # episodes = Episode.objects.filter(podcast_id=podcast_id).select_related()
+    # episodes = Episode.objects.with_media(podcast_id=podcast_id)
+    episodes = podcast.episode_set.all().filter(media__format=1)
+    print(episodes)
+
     last_build_date = formats.date_format(datetime.datetime.now(), "D, d M Y H:i:s O")
 
     return render(request, 'feed.xml', {
