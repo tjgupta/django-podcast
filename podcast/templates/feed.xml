@@ -7,7 +7,7 @@
     <language>{{ podcast.language }}</language>
     <copyright>{{ podcast.copyright }}</copyright>
     <lastBuildDate>{{ last_build_date }}</lastBuildDate>
-    <pubDate>{{ podcast.get_pub_date }}</pubDate>
+    <pubDate>{{ podcast.formatted_pub_date }}</pubDate>
 
     <itunes:subtitle>{{ podcast.subtitle }}</itunes:subtitle>
     <itunes:author>{{ podcast.author }}</itunes:author>
@@ -33,6 +33,7 @@
         <itunes:keywords>{{ episode.keywords }}</itunes:keywords>
         <itunes:image>{{ episode.image }}</itunes:image>
         <description>{{ episode.description }}</description>
+        <enclosure url="{{ episode.media.filename }}" length="{{ episode.media.duration }}" type="{{ episode.media.mime }}"/>
         <pubDate>{{ episode.get_pub_date }}</pubDate>
     </item>
     {% endfor %}

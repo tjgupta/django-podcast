@@ -24,7 +24,8 @@ class Podcast(models.Model):
     def __str__(self):
         return self.title
 
-    def get_pub_date(self):
+    @property
+    def formatted_pub_date(self):
         return formats.date_format(self.pub_date, "D, d M Y H:i:s O")
 
 
@@ -42,7 +43,7 @@ class Episode(models.Model):
     subtitle = models.CharField(max_length=255)
     summary = models.CharField(max_length=255)
     keywords = models.ManyToManyField(Keyword)
-    image_url = models.CharField(max_length=255) # TODO: switch to using ImageField and handle upload stuff
+    image_url = models.CharField(max_length=255)  # TODO: switch to using ImageField and handle upload stuff
     description = models.CharField(max_length=255)
     pub_date = models.DateTimeField()
     date_created = models.DateTimeField(auto_now_add=True)
@@ -86,3 +87,22 @@ class Media(models.Model):
 
     def __str__(self):
         return self.filename
+
+
+class EpisodeManager(models.Manager):
+
+    def with_media(self, podcast_id, format = Media.AUDIO):
+        from django.db import connection
+
+        query = '"""SELECT * from podcast_episode ' \
+                'LEFT JOIN podcast_media ' \
+                'ON podcast_episode.id = podcast_media.episode_id ' \
+                'podcast_episode.podcast_id = {} WHERE FORMAT= {}"""'.format(podcast_id, format)
+        # TODO replace this sql injection query with a prepared statement however Django handles it.
+
+        cursor = connection.cursor()
+        cursor.execute(query)
+        return cursor.fetchall()
+
+
+
