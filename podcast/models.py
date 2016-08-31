@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from django.utils import timezone
 from django.utils import formats
+from django.conf import settings
 
 
 class Podcast(models.Model):
@@ -37,7 +38,11 @@ class Podcast(models.Model):
 
     @property
     def full_image_url(self):
-        return "http://www.example.com/media/{}".format(self.image_url)
+        return settings.PODCAST_APP['base_url'] + "/media/{}".format(self.image_url)
+
+    @property
+    def full_link_url(self):
+        return settings.PODCAST_APP['base_url'] + "/" + self.link
 
 
 class Keyword(models.Model):
@@ -78,7 +83,7 @@ class Episode(models.Model):
 
     @property
     def full_image_url(self):
-        return "http://www.example.com/media/{}".format(self.image_url)
+        return settings.PODCAST_APP['base_url'] + "/media/{}".format(self.image_url)
 
 
 class Media(models.Model):
@@ -112,7 +117,7 @@ class Media(models.Model):
 
     @property
     def full_media_url(self):
-        return "http://www.example.com/media/{}".format(self.filename)
+        return settings.PODCAST_APP['base_url'] + "/media/{}".format(self.filename)
 
     @property
     def convert_mime_to_string(self):

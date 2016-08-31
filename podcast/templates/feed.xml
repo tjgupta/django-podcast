@@ -4,7 +4,7 @@
 <channel>
     <title>{{ podcast.title }}</title>
     <description>{{ podcast.description }}</description>
-    <link>{{ podcast.link }}</link>
+    <link>{{ podcast.full_link_url }}</link>
     <language>{{ podcast.language }}</language>
     <copyright>{{ podcast.copyright }}</copyright>
     <lastBuildDate>{{ last_build_date }}</lastBuildDate>
@@ -33,7 +33,7 @@
         <itunes:summary>{{ item.episode.summary }}</itunes:summary>
         <itunes:duration>{{ item.duration }}</itunes:duration>
         <itunes:keywords>{{ item.episode.keywords }}</itunes:keywords>
-        <itunes:image>{{ item.episode.full_image_url }}</itunes:image>
+        <itunes:image>{{ base_url }}{{ item.episode.full_image_url }}</itunes:image>
         <itunes:explicit>{{ item.episode.explicit }}</itunes:explicit>
         <description>{{ item.episode.description }}</description>
         <guid>{{ item.full_media_url }}</guid>
