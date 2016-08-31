@@ -1,4 +1,5 @@
 {% extends 'base.xml' %}
+
 {% block content %}
 <channel>
     <title>{{ podcast.title }}</title>
@@ -12,7 +13,7 @@
     <itunes:subtitle>{{ podcast.subtitle }}</itunes:subtitle>
     <itunes:author>{{ podcast.author }}</itunes:author>
     <itunes:summary>{{ podcast.summary }}</itunes:summary>
-    <itunes:image>{{ podcast.image }}</itunes:image>
+    <itunes:image>{{ podcast.image_url }}</itunes:image>
     <itunes:webMaster>{{ podcast.webmaster }}</itunes:webMaster>
     <itunes:owner>
         <itunes:name>{{ podcast.owner }}</itunes:name>
@@ -23,23 +24,19 @@
         <itunes:category text="{{ podcast.category }}" />
     </itunes:category>
 
-    {% for episode in episodes %}
+    {% for item in items %}
     <item>
-        <title>{{ episode.title }}</title>
-        <itunes:author>{{ episode.author }}</itunes:author>
-        <itunes:subtitle>{{ episode.subtitle }}</itunes:subtitle>
-        <itunes:summary>{{ episode.summary }}</itunes:summary>
-        <itunes:duration>{{ episode.duration }}</itunes:duration>
-        <itunes:keywords>{{ episode.keywords }}</itunes:keywords>
-        <itunes:image>{{ episode.image }}</itunes:image>
-        <description>{{ episode.description }}</description>
-        {% set media = episode.media_set.all() %}
-        <enclosure url="{{ episode.media.filename }}" length="{{ episode.media.duration }}" type="{{ episode.media.mime }}"/>
-        <pubDate>{{ episode.get_pub_date }}</pubDate>
+        <title>{{ item.episode.title }}</title>
+        <itunes:author>{{ item.episode.author }}</itunes:author>
+        <itunes:subtitle>{{ item.episode.subtitle }}</itunes:subtitle>
+        <itunes:summary>{{ item.episode.summary }}</itunes:summary>
+        <itunes:duration>{{ item.duration }}</itunes:duration>
+        <itunes:keywords>{{ item.episode.keywords }}</itunes:keywords>
+        <itunes:image>{{ item.episode.image }}</itunes:image>
+        <description>{{ item.episode.description }}</description>
+        <enclosure url="{{ item.filename }}" length="{{ item.duration }}" type="{{ item.mime }}"/>
+        <pubDate>{{ item.episode.get_pub_date }}</pubDate>
     </item>
     {% endfor %}
-
 </channel>
-
-
 {% endblock content %}
