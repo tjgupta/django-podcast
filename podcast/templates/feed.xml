@@ -14,7 +14,7 @@
     <itunes:author>{{ podcast.author }}</itunes:author>
     <itunes:summary>{{ podcast.summary }}</itunes:summary>
     <itunes:image>{{ podcast.image_url }}</itunes:image>
-    <itunes:webMaster>{{ podcast.webmaster }}</itunes:webMaster>
+    <webMaster>{{ podcast.webmaster }}</webMaster>
     <itunes:owner>
         <itunes:name>{{ podcast.owner }}</itunes:name>
         <itunes:email>{{ podcast.email }}</itunes:email>
@@ -34,7 +34,8 @@
         <itunes:keywords>{{ item.episode.keywords }}</itunes:keywords>
         <itunes:image>{{ item.episode.image }}</itunes:image>
         <description>{{ item.episode.description }}</description>
-        <enclosure url="{{ item.filename }}" length="{{ item.duration }}" type="{{ item.mime }}"/>
+        <guid>{{ item.filename }}</guid>
+        <enclosure url="{{ item.filename }}" length="{{ item.duration }}" type="audio/mpeg"/> {#{{ item.mime }} #}
         <pubDate>{{ item.episode.get_pub_date }}</pubDate>
     </item>
     {% endfor %}
