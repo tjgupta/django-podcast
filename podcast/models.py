@@ -38,7 +38,7 @@ class Podcast(models.Model):
 
     @property
     def full_image_url(self):
-        return settings.PODCAST_APP['base_url'] + "/media/{}".format(self.image_url)
+        return settings.PODCAST_APP['base_url'] + "/static/media/{}".format(self.image_url)
 
     @property
     def full_link_url(self):
@@ -83,7 +83,7 @@ class Episode(models.Model):
 
     @property
     def full_image_url(self):
-        return settings.PODCAST_APP['base_url'] + "/media/{}".format(self.image_url)
+        return settings.PODCAST_APP['base_url'] + "/static/media/{}".format(self.image_url)
 
 
 class Media(models.Model):
@@ -117,7 +117,7 @@ class Media(models.Model):
 
     @property
     def full_media_url(self):
-        return settings.PODCAST_APP['base_url'] + "/media/{}".format(self.filename)
+        return settings.PODCAST_APP['base_url'] + "/static/media/{}".format(self.filename)
 
     @property
     def convert_mime_to_string(self):
