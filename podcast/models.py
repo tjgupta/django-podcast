@@ -125,3 +125,14 @@ class Media(models.Model):
             if mime[0] == self.mime:
                 return mime[1]
 
+    def convert_format_query(self, format_type):
+
+        if type(format_type) is not str:
+            return None
+
+        for format_type_row in self.FORMAT_TYPES:
+            if format_type_row[1].lower() == format_type.lower():
+                return format_type_row[0]
+
+        return None
+
