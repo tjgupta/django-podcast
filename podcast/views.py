@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.utils import formats
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseBadRequest
 import datetime
 from .models import Episode, Podcast, Media
 
@@ -21,11 +21,10 @@ def podcast_feed(request, podcast_id):
     format_type = request.GET.get('format', Media.AUDIO)
 
     if type(format_type) is str:
-        media = Media()
-        format_type = media.convert_format_query(format_type)
+        format_type = Media.convert_format_query(format_type)
 
     if format_type is None:
-        return HttpResponseNotFound()
+        return HttpResponseBadRequest()
 
     podcast = get_object_or_404(Podcast, pk=podcast_id)
     items = Media.objects.filter(format=format_type).select_related('episode').filter(episode__podcast=podcast_id)
