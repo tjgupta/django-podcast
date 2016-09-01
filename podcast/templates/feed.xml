@@ -13,7 +13,12 @@
     <itunes:subtitle>{{ podcast.subtitle }}</itunes:subtitle>
     <itunes:author>{{ podcast.author }}</itunes:author>
     <itunes:summary>{{ podcast.summary }}</itunes:summary>
-    <itunes:image>{{ podcast.full_image_url }}</itunes:image>
+    <itunes:image href="{{ podcast.full_image_url }}" />
+    <image>
+        <url>{{ podcast.full_image_url }}</url>
+        <title>{{ podcast.title }}</title>
+        <link>{{ podcast.full_link_url }}</link>
+    </image>
     <webMaster>{{ podcast.webmaster }} ({{ podcast.owner }})</webMaster>
     <itunes:owner>
         <itunes:name>{{ podcast.owner }}</itunes:name>
@@ -33,7 +38,7 @@
         <itunes:summary>{{ item.episode.summary }}</itunes:summary>
         <itunes:duration>{{ item.duration }}</itunes:duration>
         <itunes:keywords>{{ item.episode.keywords }}</itunes:keywords>
-        <itunes:image>{{ base_url }}{{ item.episode.full_image_url }}</itunes:image>
+        <itunes:image href="{{ item.episode.full_image_url }}" />
         <itunes:explicit>{{ item.episode.explicit }}</itunes:explicit>
         <description>{{ item.episode.description }}</description>
         <guid>{{ item.full_media_url }}</guid>
