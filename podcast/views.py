@@ -21,7 +21,7 @@ def podcast_feed(request, podcast_id):
     format_type = request.GET.get('format', Media.AUDIO)
 
     if type(format_type) is str:
-        format_type = Media.convert_format_query(format_type)
+        format_type = Media.convert_format_str_to_int(format_type)
 
     if format_type is None:
         return HttpResponseBadRequest()

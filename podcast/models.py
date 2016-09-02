@@ -1,7 +1,6 @@
 import datetime
 
 from django.db import models
-from django.utils import timezone
 from django.utils import formats
 from django.conf import settings
 
@@ -74,11 +73,8 @@ class Episode(models.Model):
     def __str__(self):
         return self.title
 
-    def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-
     @property
-    def get_pub_date(self):
+    def formatted_pub_date(self):
         return formats.date_format(self.pub_date, "D, d M Y H:i:s O")
 
     @property
@@ -120,7 +116,7 @@ class Media(models.Model):
         return settings.PODCAST_APP['base_url'] + "/static/media/{}".format(self.filename)
 
     @staticmethod
-    def convert_format_query(format_type):
+    def convert_format_str_to_int(format_type):
 
         if type(format_type) is not str:
             return None

@@ -43,7 +43,7 @@
         <description>{{ item.episode.description }}</description>
         <guid>{{ item.full_media_url }}</guid>
         <enclosure url="{{ item.full_media_url }}" length="{{ item.duration }}" type="{{ item.get_mime_display }}"/>
-        <pubDate>{{ item.episode.get_pub_date }}</pubDate>
+        <pubDate>{{ item.episode.formatted_pub_date }}</pubDate>
     </item>
     {% endfor %}
 </channel>
