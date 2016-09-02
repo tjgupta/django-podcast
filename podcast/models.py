@@ -119,12 +119,6 @@ class Media(models.Model):
     def full_media_url(self):
         return settings.PODCAST_APP['base_url'] + "/static/media/{}".format(self.filename)
 
-    @property
-    def convert_mime_to_string(self):
-        for mime in self.MIME_TYPES:
-            if mime[0] == self.mime:
-                return mime[1]
-
     @staticmethod
     def convert_format_query(format_type):
 
