@@ -28,7 +28,7 @@
     <itunes:category text="{{ podcast.category }}">
         <itunes:category text="{{ podcast.category }}" />
     </itunes:category>
-    <itunes:explicit>{{ podcast.explicit }}</itunes:explicit>
+    <itunes:explicit>{{ podcast.get_explicit_display }}</itunes:explicit>
 
     {% for item in items %}
     <item>
@@ -39,7 +39,7 @@
         <itunes:duration>{{ item.duration }}</itunes:duration>
         <itunes:keywords>{{ item.episode.keywords }}</itunes:keywords>
         <itunes:image href="{{ item.episode.full_image_url }}" />
-        <itunes:explicit>{{ item.episode.explicit }}</itunes:explicit>
+        <itunes:explicit>{{ item.episode.get_explicit_display }}</itunes:explicit>
         <description>{{ item.episode.description }}</description>
         <guid>{{ item.full_media_url }}</guid>
         <enclosure url="{{ item.full_media_url }}" length="{{ item.duration }}" type="{{ item.get_mime_display }}"/>

@@ -8,9 +8,9 @@ from django.conf import settings
 class Podcast(models.Model):
 
     EXPLICIT = (
-        ('yes', 'yes'),
-        ('no', 'no'),
-        ('clean', 'clean'))
+        (1, 'yes'),
+        (2, 'no'),
+        (3, 'clean'))
 
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
@@ -26,7 +26,7 @@ class Podcast(models.Model):
     image_url = models.CharField(max_length=255)  # TODO: switch to using ImageField and handle upload stuff
     owner = models.CharField(max_length=255)
     email = models.EmailField()
-    explicit = models.CharField(max_length=5, choices=EXPLICIT)
+    explicit = models.IntegerField(choices=EXPLICIT, default=2)
 
     def __str__(self):
         return self.title
@@ -53,9 +53,9 @@ class Keyword(models.Model):
 
 class Episode(models.Model):
     EXPLICIT = (
-        ('yes', 'yes'),
-        ('no', 'no'),
-        ('clean', 'clean'))
+        (1, 'yes'),
+        (2, 'no'),
+        (3, 'clean'))
 
     podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
@@ -65,7 +65,7 @@ class Episode(models.Model):
     keywords = models.ManyToManyField(Keyword)
     image_url = models.CharField(max_length=255)  # TODO: switch to using ImageField and handle upload stuff
     description = models.CharField(max_length=255)
-    explicit = models.CharField(max_length=5, choices=EXPLICIT)
+    explicit = models.IntegerField(choices=EXPLICIT, default=2)
     pub_date = models.DateTimeField()
     date_created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
